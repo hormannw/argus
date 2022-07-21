@@ -1,0 +1,13 @@
+Package: argus
+Type: Package
+Title: Random Variate Generator for the argus Distribution
+Version: 0.1
+Author: Wolfgang Hormann and Christoph Baumgarten
+Maintainer: Wolfgang Hormann <hormannw@boun.edu.tr>
+Imports: Runuran
+Description: 
+  Generator and density function for the Argus distribution.
+License: GPL (>= 2)
+LazyLoad: yes
+NeedsCompilation: yes
+Repository: CRAN
