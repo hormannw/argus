@@ -22,13 +22,3 @@ SEXP do_rargusRoU(int n, double *chi, int nchi);
 /* Draw sample from argus distribution                                       */
 /* without calling GetRNGstate() ... PutRNGstate()                           */
 /*---------------------------------------------------------------------------*/
-
-SEXP dargus(SEXP sexp_x, SEXP sexp_chi, SEXP sexp_logvalue);
-/*---------------------------------------------------------------------------*/
-/* evaluate pdf of argus distribution                                        */
-/*---------------------------------------------------------------------------*/
-
-SEXP pargus(SEXP sexp_x, SEXP sexp_chi, SEXP sexp_lower, SEXP sexp_logvalue);
-/*---------------------------------------------------------------------------*/
-/* evaluate CDF of argus distribution                                        */
-/*---------------------------------------------------------------------------*/

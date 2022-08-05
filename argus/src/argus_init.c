@@ -12,8 +12,6 @@
 
 static const R_CallMethodDef CallEntries[] = {
     {"rargusRoU", (DL_FUNC) &rargusRoU, 2},
-    {"dargus", (DL_FUNC) &dargus, 3},
-    {"pargus", (DL_FUNC) &pargus, 4},
     {NULL, NULL, 0}
 };
 
