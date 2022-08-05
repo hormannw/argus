@@ -6,7 +6,8 @@ Author: Wolfgang Hormann and Christoph Baumgarten
 Maintainer: Wolfgang Hormann <hormannw@boun.edu.tr>
 Imports: Runuran
 Description: 
-  Generator and density function for the Argus distribution.
+  Random variate generation density, CDF and quantile function 
+  for the Argus distribution.
 License: GPL (>= 2)
 LazyLoad: yes
 NeedsCompilation: yes
