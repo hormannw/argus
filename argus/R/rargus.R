@@ -142,7 +142,7 @@ if( chi>=1){
   return( sqrt(1-2* Runuran::uq(argus.env$genora$gH2,CU/argus.env$genora$C2) /(chi*chi)))
 }
 Y <- 0.5*chi^2*(1-runif(n))^(2/3)
-if(chi >= 1.e-5){ 
+if(chi > 1.e-5){ 
  Y<- ( (Y*(1+Y*(1+Y*(0.5+Y/6))))*(1/3-0.1*Y+2*(1/3-0.1*chi^2))  -0.5*Y*Y*(1+Y/3) ) } # uses approximation (16) of the paper
 
   return( sqrt(1-2*Y /(chi*chi)) )
@@ -191,9 +191,9 @@ rgam1.5chi.less.01 <- function(chi){
 Y <- numeric(length(chi))
 lv <- chi>=1 #which(chi>=1)
 Y[lv]<- rgam1.5chi.gr.1(chi[lv])
-lv <- !chi>=1 & chi>0.1 
+lv <- !chi>=1 & chi>=0.1 
 Y[lv]<-  rgam1.5chi..1to1(chi[lv])
-lv <- chi<0.1 &chi>0.01
+lv <- chi<0.1 &chi>=0.01
 Y[lv]<-  rgam1.5chi..01to.1(chi[lv])
 lv <- chi<0.01
 Y[lv]<-  rgam1.5chi.less.01(chi[lv])
