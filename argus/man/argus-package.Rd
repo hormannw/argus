@@ -14,6 +14,10 @@ of the argus distribution.
 }
 
 \details{
+  The Argus distribution has the density (pdf) which is proportional to
+  \deqn{f(x) = x \sqrt{1-x^2}\exp(-0.5\chi^2(1-x^2)),  \mbox{for} 0 \leq x \leq 1 \mbox{and} \chi > 0}{%
+        f(x) = x \sqrt(1-x^2)\exp(-0.5\chi^2(1-x^2)),  for 0 <= x <= 1 and \chi > 0}
+
   \tabular{ll}{
     Package: \tab argus          \cr
     License: \tab GPL 2 or later\cr
@@ -40,19 +44,16 @@ of the argus distribution.
 \examples{
 ## Evaluate the pdf (density)
 dargus(c(0.1,0.5,0.9), chi=0.3)
-# chi must have the same length as x !
-dargus(c(0.1,0.5,0.9), chi=c(0.3,1.3,2.3)) 
-## Evaluate the CDF
-pargus(c(0.1,0.5,0.9), chi=0.3)
+## Evaluate the CDF for different chi values
 pargus(c(0.1,0.5,0.9), chi=c(0.3,1.3,2.3)) 
 ## Evaluate the quantile function
 pargus(c(0.1,0.5,0.9), chi=4.5)
 ## Draw a random sample
 rargus(n=10, chi=0.3)
 ## compare histogram and density
-system.time(y<-rargus(1.e6,chi=2.5))
+system.time(y<-rargus(1.e5,chi=2.5))
 hist(y,breaks=100,freq=FALSE)
-lines(x<-seq(0,1,1.e-3),dargus(x,2.5),col=2)
+lines(x<-seq(0,1,1.e-3),dargus(x,2.5),col=2,lwd=2)
 }
 
 \keyword{package}

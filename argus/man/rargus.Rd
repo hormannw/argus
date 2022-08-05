@@ -24,7 +24,7 @@ qargus(p, chi, lower = TRUE, log.p = FALSE)}
 \arguments{
   \item{n}{Number of observations}
   \item{chi}{parameter vector \code{chi>0}}
-  \item{method}{random variate generation method to be used}
+  \item{method}{random variate generation method to be used (details are below)}
   \item{x}{x-value for the density or CDF}
   \item{log}{If \code{TRUE} the logarithm of the density is returned.}
   \item{lower}{If \code{FALSE} 1-CDF or its inverse is returned}
@@ -33,6 +33,11 @@ qargus(p, chi, lower = TRUE, log.p = FALSE)}
 }
 
 \details{
+  The Argus distribution has the density (pdf) which is proportional to
+  \deqn{f(x) = x \sqrt{1-x^2}\exp(-0.5\chi^2(1-x^2)),  \mbox{for} 0 \leq x \leq 1 \mbox{and} \chi > 0}{%
+        f(x) = x \sqrt(1-x^2)\exp(-0.5\chi^2(1-x^2)),  for 0 <= x <= 1 and \chi > 0}
+
+
   The generators used for \code{rargus()} are very efficient also for the varying parameter case,
   i.e. when the vector \code{chi} has length \code{n}.
   
@@ -69,28 +74,32 @@ are recycled to the length of the result. Only the first elements of the logical
 %% \seealso{}
 
 \examples{
-## Evaluate the pdf (density)
-dargus(c(0.1,0.5,0.9), chi=c(0.3,1.3,2.3)) 
-## Evaluate the CDF
-pargus(c(0.1,0.5,0.9), chi=c(0.3,1.3,2.3)) 
-## Draw a random sample
-rargus(n=5, chi=0.3)
-## Generate a large sample with a fixed parameter
-system.time(y<-rargus(n=1.e6,chi=2.5))
-## compare histogram and density
-hist(y,breaks=100,freq=FALSE)
-lines(x<-seq(0,1,1.e-3),dargus(x,chi=2.5),col=2,lwd=2)
-## transform the sample with the CDF and check if it is then uniform
-uy <- pargus(y,chi=2.5)
-hist(uy,breaks=100)
-## to demonstrate the speed also of the varying parameter case:
-chiv<-3*runif(2.e6)
-system.time(y<-rargus(n=2.e6,chi=chiv))
-hist(pargus(y,chiv),breaks=100)
+library(argus)
+# pdf, cdf and quantile function
+dargus((0:10)/10,.6)
+qargus(0.9,2)
+pargus(qargus(0.9,2),2)
 
-#\dontrun{
-#}
+y<-rargus(n=1.e5,chi=0.3,method="inversion")
+hist(y,breaks=100,main="Argus pdf with chi=0.3",freq=FALSE)
+lines(xv<-seq(0,1,0.001),dargus(xv,chi=0.3),lwd=0.2,col=2)
 
+n=1.e5
+chiv <- 1. +runif(n)*5 # chi-values in (1,5)
+system.time({set.seed(123);y<-rargus(chi=chiv)})
+set.seed(123);u<- runif(n)
+mean(abs(pargus(y,chiv)-u))
+
+# random variate generation with the inversion method
+y<-rargus(n=1.e5,chi=0.3,method="inversion")
+hist(y,breaks=100,main="Argus pdf with chi=0.3",freq=FALSE)
+lines(xv<-seq(0,1,0.001),dargus(xv,chi=0.3),lwd=0.2,col=2)
+# using Ratio of Uniforms
+y<-rargus(n=1.e5,chi=3,method="RoU")
+hist(y,breaks=100,main="Argus pdf with chi=3",freq=FALSE)
+lines(xv<-seq(0,1,0.001),dargus(xv,chi=3),lwd=2,col=2)
+# generating for different chi values
+y<-rargus(n=100,chi=runif(100)*2,method="RoU")
 }
 
 \keyword{package}
